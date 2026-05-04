@@ -6,6 +6,7 @@
 import { motion } from "motion/react";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { useState, useEffect, ReactNode } from "react";
+import { getDriveUrl, DRIVE_MAPPING } from "./lib/drive";
 
 const Section = ({ children, className = "", id }: { children: ReactNode; className?: string; id?: string }) => (
   <section id={id} className={`min-h-screen relative py-24 px-6 md:px-12 lg:px-24 ${className}`}>
@@ -90,7 +91,7 @@ export default function App() {
           className="relative w-full max-w-4xl aspect-[4/5] md:aspect-[16/9] overflow-hidden"
         >
           <img 
-            src="/photos/7833524ccd60122d479dd82a90b757b3.jpg" 
+            src={getDriveUrl(DRIVE_MAPPING.hero)} 
             alt="BOUDOIR Hero"
             className="w-full h-full object-cover image-grain"
             referrerPolicy="no-referrer"
@@ -133,7 +134,7 @@ export default function App() {
             className="aspect-[3/4] overflow-hidden"
           >
             <img 
-              src="/photos/letstakepicswecanneverpost1_png.webp" 
+              src={getDriveUrl(DRIVE_MAPPING.livre)} 
               alt="Livre Partenaire"
               className="w-full h-full object-cover image-grain"
               referrerPolicy="no-referrer"
@@ -150,7 +151,7 @@ export default function App() {
         >
           <div className="relative aspect-[3/4] overflow-hidden">
             <img 
-              src="/photos/6e4f1afda0523518c38ceb20e11cacac.jpg" 
+              src={getDriveUrl(DRIVE_MAPPING.story1)} 
               alt="Story 1"
               className="w-full h-full object-cover image-grain"
               referrerPolicy="no-referrer"
@@ -177,7 +178,7 @@ export default function App() {
             className="h-[120%] w-full"
           >
             <img 
-              src="/photos/aa038866ad65d1589879b24afc507b70.jpg" 
+              src={getDriveUrl(DRIVE_MAPPING.story2)} 
               alt="Story 2"
               className="w-full h-full object-cover image-bw opacity-80"
               referrerPolicy="no-referrer"
@@ -208,7 +209,7 @@ export default function App() {
         >
           <div className="relative aspect-[16/9] overflow-hidden">
             <img 
-              src="/photos/d106a100bba2f00bf050180bdc357564.jpg" 
+              src={getDriveUrl(DRIVE_MAPPING.story3)} 
               alt="Story 3"
               className="w-full h-full object-cover image-grain"
               referrerPolicy="no-referrer"
@@ -235,17 +236,7 @@ export default function App() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
-          {[
-            { title: "Soutien-gorge Nude", price: "€75", img: "/photos/a9423efe702b057f1fe8e53410a15808.jpg" },
-            { title: "Body Dentelle", price: "€120", img: "/photos/ca4077facc622290665086b057e5c660.jpg" },
-            { title: "Nuisette Soie", price: "€145", img: "/photos/915cb80b71b79e4c6f3ead9c15802a5a.jpg" },
-            { title: "Culotte Vintage", price: "€45", img: "/photos/33f641e466838f0e32a389d2ef30d922.jpg" },
-            { title: "Top de Nuit", price: "€65", img: "/photos/45e2e3b3c4cd8bc9eaf206a70e928cef.jpg" },
-            { title: "Shorty Coton", price: "€40", img: "/photos/05aa79344f9ff331a91e8f28588a0840.jpg" },
-            { title: "Bandeau Ivoire", price: "€55", img: "/photos/4e388d0923779398a790c58d98c423d5.jpg" },
-            { title: "Ensemble Matin", price: "€110", img: "/photos/93e045b57a989b603d60b934fbf1a4ae.jpg" },
-            { title: "Porte-jarretelles", price: "€85", img: "/photos/82769fffd727c0230fe9da443fea1ee3.jpg" }
-          ].map((product, i) => (
+          {DRIVE_MAPPING.products.map((product, i) => (
             <motion.div 
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -256,7 +247,7 @@ export default function App() {
             >
               <div className="aspect-[3/4] overflow-hidden mb-6 bg-rose-faded/10">
                 <img 
-                  src={product.img} 
+                  src={getDriveUrl(product.id)} 
                   alt={product.title}
                   className="w-full h-full object-cover image-grain group-hover:scale-105 transition-transform duration-1000"
                   referrerPolicy="no-referrer"
@@ -264,7 +255,7 @@ export default function App() {
               </div>
               <div className="flex justify-between items-end border-b border-ink/10 pb-4">
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest opacity-40 mb-1">Modèle {i + 1}</p>
+                  <p className="text-[10px] uppercase tracking-widest opacity-40 mb-1">Modèle</p>
                   <h3 className="text-xl italic">{product.title}</h3>
                 </div>
                 <p className="text-lg font-light">{product.price}</p>
