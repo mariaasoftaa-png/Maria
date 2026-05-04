@@ -5,31 +5,36 @@
 export function getDriveUrl(input: string): string | null {
   if (!input || input === 'ID_HERE') return null;
   
-  // If it's already a simple ID (no slashes or dots)
-  if (!input.includes('/') && !input.includes('.')) {
-    return `https://drive.google.com/uc?export=view&id=${input}`;
-  }
-  
-  // Try to extract ID from various Drive URL formats
-  // Format 1: https://drive.google.com/file/d/[ID]/view...
-  const fileMatch = input.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-  if (fileMatch && fileMatch[1]) {
-    return `https://drive.google.com/uc?export=view&id=${fileMatch[1]}`;
-  }
-  
-  // Format 2: https://drive.google.com/open?id=[ID] or similar query match
-  const openMatch = input.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-  if (openMatch && openMatch[1]) {
-    return `https://drive.google.com/uc?export=view&id=${openMatch[1]}`;
-  }
+  let id = input;
 
-  // Folders and other links that aren't direct files
-  if (input.includes('/drive/folders/')) {
-    console.warn("Google Drive folder links cannot be used as image sources directly. Please use a direct file link.");
+  // If it's a URL, extract the ID
+  if (input.includes('drive.google.com')) {
+    // Format 1: /file/d/[ID]/view
+    const fileMatch = input.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (fileMatch && fileMatch[1]) {
+      id = fileMatch[1];
+    } 
+    // Format 2: ?id=[ID]
+    else {
+      const openMatch = input.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (openMatch && openMatch[1]) {
+        id = openMatch[1];
+      }
+      // Folders
+      else if (input.includes('/drive/folders/')) {
+        console.warn("Lien de dossier Google Drive détecté pour une image. Veuillez utiliser le lien de partage d'un FICHIER spécifique.");
+        return null;
+      }
+    }
+  }
+  
+  // Clean up ID just in case it still contains slashes or dots (from invalid input)
+  if (id.includes('/') || id.includes('.')) {
     return null;
   }
 
-  return null;
+  // Improved direct link format (less likely to be blocked by Google)
+  return `https://lh3.googleusercontent.com/d/${id}`;
 }
 
 /**

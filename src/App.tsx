@@ -91,7 +91,7 @@ export default function App() {
           className="relative w-full max-w-4xl aspect-[4/5] md:aspect-[16/9] overflow-hidden"
         >
           <img 
-            src={getDriveUrl(DRIVE_MAPPING.hero)} 
+            src={getDriveUrl(DRIVE_MAPPING.hero) || undefined} 
             alt="BOUDOIR Hero"
             className="w-full h-full object-cover image-grain"
             referrerPolicy="no-referrer"
@@ -134,7 +134,7 @@ export default function App() {
             className="aspect-[3/4] overflow-hidden"
           >
             <img 
-              src={getDriveUrl(DRIVE_MAPPING.livre)} 
+              src={getDriveUrl(DRIVE_MAPPING.livre) || undefined} 
               alt="Livre Partenaire"
               className="w-full h-full object-cover image-grain"
               referrerPolicy="no-referrer"
@@ -151,7 +151,7 @@ export default function App() {
         >
           <div className="relative aspect-[3/4] overflow-hidden">
             <img 
-              src={getDriveUrl(DRIVE_MAPPING.story1)} 
+              src={getDriveUrl(DRIVE_MAPPING.story1) || undefined} 
               alt="Story 1"
               className="w-full h-full object-cover image-grain"
               referrerPolicy="no-referrer"
@@ -178,7 +178,7 @@ export default function App() {
             className="h-[120%] w-full"
           >
             <img 
-              src={getDriveUrl(DRIVE_MAPPING.story2)} 
+              src={getDriveUrl(DRIVE_MAPPING.story2) || undefined} 
               alt="Story 2"
               className="w-full h-full object-cover image-bw opacity-80"
               referrerPolicy="no-referrer"
@@ -209,7 +209,7 @@ export default function App() {
         >
           <div className="relative aspect-[16/9] overflow-hidden">
             <img 
-              src={getDriveUrl(DRIVE_MAPPING.story3)} 
+              src={getDriveUrl(DRIVE_MAPPING.story3) || undefined} 
               alt="Story 3"
               className="w-full h-full object-cover image-grain"
               referrerPolicy="no-referrer"
@@ -247,7 +247,7 @@ export default function App() {
             >
               <div className="aspect-[3/4] overflow-hidden mb-6 bg-rose-faded/10">
                 <img 
-                  src={getDriveUrl(product.id)} 
+                  src={getDriveUrl(product.id) || undefined} 
                   alt={product.title}
                   className="w-full h-full object-cover image-grain group-hover:scale-105 transition-transform duration-1000"
                   referrerPolicy="no-referrer"
