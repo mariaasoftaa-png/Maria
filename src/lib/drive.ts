@@ -44,16 +44,17 @@ export function getDriveUrl(input: string): string | null {
  */
 export const DRIVE_MAPPING = {
   // Hero & Story sections
-  hero: "https://drive.google.com/drive/folders/1zxtG3X0Tz-8SJ6FHIzm_iUMui5klFHS6?usp=sharing", // was /photos/7833524ccd60122d479dd82a90b757b3.jpg
-  livre: "https://drive.google.com/file/d/1ck8QeaMoCGWr-hg18FfXj4beudDfBr6g/view?usp=drive_link", // was /photos/letstakepicswecanneverpost1_png.webp
-  story1: "https://drive.google.com/file/d/1OlHQ3EyM4eWhCY65yTsa2X32Dl7-fnRy/view?usp=drive_link", // was /photos/6e4f1afda0523518c38ceb20e11cacac.jpg
-  story2: "https://drive.google.com/file/d/1aGNx7e_jxvwg7-T6Xhnst5qYSfk_0xF1/view?usp=drive_link", // was /photos/aa038866ad65d1589879b24afc507b70.jpg
-  story3: "https://drive.google.com/file/d/1Pp1HyRgVt5VNY94zMcpW5LkTy0E_-3ps/view?usp=drive_link", // was /photos/d106a100bba2f00bf050180bdc357564.jpg
+  // IMPORTANT: Replace the 'folders' link below with a direct link to ONE specific image file
+  hero: "https://drive.google.com/file/d/1fEgCn0uiLMzSSdTecTI4ZBrgFAQvgECc/view?usp=drive_link", 
+  livre: "1ck8QeaMoCGWr-hg18FfXj4beudDfBr6g",
+  story1: "1OlHQ3EyM4eWhCY65yTsa2X32Dl7-fnRy",
+  story2: "1aGNx7e_jxvwg7-T6Xhnst5qYSfk_0xF1",
+  story3: "1Pp1HyRgVt5VNY94zMcpW5LkTy0E_-3ps",
 
   // Product Collection
   products: [
-    { title: "Soutien-gorge Nude", price: "€95", id: "ID_HERE" },
-    { title: "Top Dentelle", price: "€140", id: "ID_HERE" },
+    { title: "Soutien-gorge Nude", price: "€95", id: "1_e_f-U2uQnBy9YIDL130yD1n8F-A_y20" },
+    { title: "Top Dentelle", price: "€140", id: "1R3m8s9D5_8v6x7zY..." }, // Replace with actual file IDs
     { title: "Nuisette Soie", price: "€210", id: "ID_HERE" },
     { title: "Robe de Nuit Collection Mariage", price: "€380", id: "ID_HERE" },
     { title: "Top de Nuit", price: "€85", id: "ID_HERE" },
