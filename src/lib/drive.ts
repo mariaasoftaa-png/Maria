@@ -3,37 +3,33 @@
  * The pattern is https://drive.google.com/uc?export=view&id={id}
  */
 export function getDriveUrl(input: string): string | null {
-  if (!input || input === 'ID_HERE') return null;
+  if (!input || input === 'ID_HERE' || input.includes('...')) return null;
   
   let id = input;
 
-  // If it's a URL, extract the ID
+  // Extraction d'ID plus rigoureuse
   if (input.includes('drive.google.com')) {
-    // Format 1: /file/d/[ID]/view
-    const fileMatch = input.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-    if (fileMatch && fileMatch[1]) {
-      id = fileMatch[1];
-    } 
-    // Format 2: ?id=[ID]
-    else {
-      const openMatch = input.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-      if (openMatch && openMatch[1]) {
-        id = openMatch[1];
-      }
-      // Folders
-      else if (input.includes('/drive/folders/')) {
-        console.warn("Lien de dossier Google Drive détecté pour une image. Veuillez utiliser le lien de partage d'un FICHIER spécifique.");
-        return null;
-      }
+    // Si c'est un lien de dossier, on ne peut pas l'afficher comme une image
+    if (input.includes('/drive/folders/')) {
+      console.error("Désolé, un lien de DOSSIER ne peut pas être utilisé comme image : " + input);
+      return null;
+    }
+
+    const matches = input.match(/[-\w]{25,}/);
+    if (matches) {
+      id = matches[0];
+    } else {
+      return null;
     }
   }
   
-  // Clean up ID just in case it still contains slashes or dots (from invalid input)
-  if (id.includes('/') || id.includes('.')) {
+  // Nettoyage final
+  id = id.trim();
+  if (id.includes('/') || id.includes('?') || id.includes(':')) {
     return null;
   }
 
-  // Improved direct link format (less likely to be blocked by Google)
+  // Format haute performance de Google (souvent plus fiable que /uc?export=view)
   return `https://lh3.googleusercontent.com/d/${id}`;
 }
 
@@ -44,8 +40,7 @@ export function getDriveUrl(input: string): string | null {
  */
 export const DRIVE_MAPPING = {
   // Hero & Story sections
-  // IMPORTANT: Replace the 'folders' link below with a direct link to ONE specific image file
-  hero: "https://drive.google.com/file/d/1fEgCn0uiLMzSSdTecTI4ZBrgFAQvgECc/view?usp=drive_link", 
+  hero: "1fEgCn0uiLMzSSdTecTI4ZBrgFAQvgECc", 
   livre: "1ck8QeaMoCGWr-hg18FfXj4beudDfBr6g",
   story1: "1OlHQ3EyM4eWhCY65yTsa2X32Dl7-fnRy",
   story2: "1aGNx7e_jxvwg7-T6Xhnst5qYSfk_0xF1",
@@ -53,14 +48,19 @@ export const DRIVE_MAPPING = {
 
   // Product Collection
   products: [
-    { title: "Soutien-gorge Nude", price: "€95", id: "1_e_f-U2uQnBy9YIDL130yD1n8F-A_y20" },
-    { title: "Top Dentelle", price: "€140", id: "1R3m8s9D5_8v6x7zY..." }, // Replace with actual file IDs
-    { title: "Nuisette Soie", price: "€210", id: "ID_HERE" },
-    { title: "Robe de Nuit Collection Mariage", price: "€380", id: "ID_HERE" },
-    { title: "Top de Nuit", price: "€85", id: "ID_HERE" },
-    { title: "Collant en dentelle", price: "€35", id: "ID_HERE" },
-    { title: "Ensemble pyjama ivoire", price: "€245", id: "ID_HERE" },
-    { title: "Ensemble Matin", price: "€180", id: "ID_HERE" },
-    { title: "Haut coton fin", price: "€75", id: "ID_HERE" }
+    { title: "Nuisette Pétale", price: "€165", id: "12QM2igjPdpNhFtJ04ZojpK9S1UYDWFat" },
+    { title: "Robe de nuit dentelle poudré", price: "€185", id: "162_8VX9XiBGaB_xuwZW3Ft2L1mH42Yir" },
+    { title: "Jupe dentelle", price: "€145", id: "1ARFmfjpQsC1kRNfjzWdr4EH80t5Fwbn0" },
+    { title: "Soutien-gorge Pétale", price: "€95", id: "1BN4_Jqk5FIOirUQWBJrDJLq2uzBaUkOD" },
+    { title: "La Classique Dress Dentelle", price: "€175", id: "1D_fFdSLP41I4DkP5b9v-oeM7KJxomzR3" },
+    { title: "Collant en dentelle", price: "€35", id: "1E3gBmUUOXmOZHOFlyw7L12cntWveYKw3" },
+    { title: "Corset noir dentelle", price: "€210", id: "1EAlIrzdwRx6se2En8T84rULCs_xQmDrV" },
+    { title: "Robe de Nuit Collection Mariage", price: "€380", id: "1I0og3VaG6c-cmjHC7GqagkB4VklwJZZe" },
+    { title: "Ensemble Matin", price: "€180", id: "1NLYg6yeDNGygFH7G87cJPqSiUBQugw-X" },
+    { title: "Robe de printemps poudré", price: "€195", id: "1Wo_Q6GbuiDtNhGM-mVAuyCGutFT1KYPG" },
+    { title: "Haut Dentelle Fine", price: "€130", id: "1XqGyRXw91-xMbutUfIPemb17PPnrb5Aq" },
+    { title: "Ensemble Nuit d'Or", price: "€290", id: "1ao-8uE2CtM6iBZE9p0MALLJrRUaXJBQ2" },
+    { title: "Top poudré", price: "€95", id: "1bt8RGUPcx5hmYTw3RQIPfo6vzmh3IK-T" },
+    { title: "Haut Tradition", price: "€95", id: "1ieLE6fMF8tm3cTJ5kZuOS7RpWlJW-Spd" }
   ]
 };
