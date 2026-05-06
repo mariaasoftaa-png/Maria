@@ -45,6 +45,11 @@ export const DRIVE_MAPPING = {
   story1: "1OlHQ3EyM4eWhCY65yTsa2X32Dl7-fnRy",
   story2: "1aGNx7e_jxvwg7-T6Xhnst5qYSfk_0xF1",
   story3: "1Pp1HyRgVt5VNY94zMcpW5LkTy0E_-3ps",
+  // Journal gallery
+  journalGallery: [
+    "1YIQDaPn-NYyT4Ki13k33JytGSuQvdjDp",
+    "1hFCPTLup2xKiYBaP1a8x26SC8K8OYGlU"
+  ],
 
   // Book gallery images
   bookGallery: [
@@ -59,21 +64,172 @@ export const DRIVE_MAPPING = {
     "1zWgo0aFzxmIr8kQfZzzLwgSPRA2AW10N"
   ],
 
+  // Atelier gallery
+  atelierGallery: [
+    "1b_oBpbvaD8Go-rIVQ-YRR_MeiIO_lnjh",
+    "12aJzkYbAZHmrXa-ZdDlwKV7ubV3u7Rl8",
+    "1YVMc0WA6G7EqaxoE9m4C4rrrZidsR2hn",
+    "1ldA6N1Y3I5GlxXtKwWepPACNzO6U-ONk",
+    "1r8WctGWGBCZPl2c9-ZHjNoCx2v3o3Ceu"
+  ],
+
+  // Recommendations
+  recommendations: [
+    {
+      productTitle: "Robe de Nuit Collection Mariage",
+      recommendationTitle: "Priscilla",
+      recommendationType: "Film",
+      author: "Sofia Coppola",
+      description: "L'esthétique vaporeuse et mélancolique du film de Sofia Coppola fait écho à la délicatesse de notre soie laiteuse.",
+      imageId: "1AZSqOJrNDVVqROnrZ5YB4ynIOHvmpdE-",
+      productImageId: "1I0og3VaG6c-cmjHC7GqagkB4VklwJZZe"
+    },
+    {
+      productTitle: "Corset noir dentelle",
+      recommendationTitle: "Black Swan",
+      recommendationType: "Film",
+      author: "Darren Aronofsky",
+      description: "La dualité entre la grâce et l'obscurité, soulignée par la structure rigoureuse et la finesse de notre dentelle noire.",
+      imageId: "1b-5YtbfCoIEKk-o2t9q2W8uoQuFuUp72",
+      productImageId: "1EAlIrzdwRx6se2En8T84rULCs_xQmDrV"
+    },
+    {
+      productTitle: "Nuisette Pétale",
+      recommendationTitle: "Caraval",
+      recommendationType: "Livre",
+      author: "Stephanie Garber",
+      description: "Un univers onirique où la magie et le mystère se mêlent, parfaitement incarné par la légèreté de la Nuisette Pétale.",
+      imageId: "1QHysJdR6xYl2ci6Uv0yCGEVbEd2-tcqk",
+      productImageId: "12QM2igjPdpNhFtJ04ZojpK9S1UYDWFat"
+    },
+    {
+      productTitle: "La Classique Dress Dentelle",
+      recommendationTitle: "Pride & Prejudice",
+      recommendationType: "Film / Livre",
+      author: "Jane Austen",
+      description: "L'élégance intemporelle et les sentiments retenus, un miroir de la structure classique de nos dentelles.",
+      imageId: "18fciXDOAR9Gh-u3b-skEarBm1j8C2Lub",
+      productImageId: "1D_fFdSLP41I4DkP5b9v-oeM7KJxomzR3"
+    },
+    {
+      productTitle: "Robe de printemps poudré",
+      recommendationTitle: "Alice in Wonderland",
+      recommendationType: "Livre",
+      author: "Lewis Carroll",
+      description: "L'innocence éthérée et la curiosité sans fin, portées par une douceur poudrée.",
+      imageId: "1NcWTsrsUYKSiKLD5FEuoAYuNfZ3qF3fi",
+      productImageId: "1Wo_Q6GbuiDtNhGM-mVAuyCGutFT1KYPG"
+    },
+    {
+      productTitle: "Ensemble Nuit d'Or",
+      recommendationTitle: "Marie Antoinette",
+      recommendationType: "Film",
+      author: "Sofia Coppola",
+      description: "Une explosion de pastels et de décadence romantique, célébrant la préciosité de nos ensembles dorés.",
+      imageId: "1hqSjloPIo6j1adl-saJm_s-Gouwx-TMK",
+      productImageId: "1ao-8uE2CtM6iBZE9p0MALLJrRUaXJBQ2"
+    }
+  ],
+
   // Product Collection
   products: [
-    { title: "Nuisette Pétale", price: "€165", id: "12QM2igjPdpNhFtJ04ZojpK9S1UYDWFat", category: "nuisette" },
-    { title: "Robe de nuit dentelle poudré", price: "€185", id: "162_8VX9XiBGaB_xuwZW3Ft2L1mH42Yir", category: "robe" },
-    { title: "Jupe dentelle", price: "€145", id: "1ARFmfjpQsC1kRNfjzWdr4EH80t5Fwbn0", category: "jupe" },
-    { title: "Soutien-gorge Pétale", price: "€95", id: "1BN4_Jqk5FIOirUQWBJrDJLq2uzBaUkOD", category: "soutien-gorge" },
-    { title: "La Classique Dress Dentelle", price: "€175", id: "1D_fFdSLP41I4DkP5b9v-oeM7KJxomzR3", category: "robe" },
-    { title: "Collant en dentelle", price: "€35", id: "1E3gBmUUOXmOZHOFlyw7L12cntWveYKw3", category: "accessoire" },
-    { title: "Corset noir dentelle", price: "€210", id: "1EAlIrzdwRx6se2En8T84rULCs_xQmDrV", category: "top" },
-    { title: "Robe de Nuit Collection Mariage", price: "€380", id: "1I0og3VaG6c-cmjHC7GqagkB4VklwJZZe", category: "robe" },
-    { title: "Ensemble Matin", price: "€180", id: "1NLYg6yeDNGygFH7G87cJPqSiUBQugw-X", category: "ensemble" },
-    { title: "Robe de printemps poudré", price: "€195", id: "1Wo_Q6GbuiDtNhGM-mVAuyCGutFT1KYPG", category: "robe" },
-    { title: "Haut Dentelle Fine", price: "€130", id: "1XqGyRXw91-xMbutUfIPemb17PPnrb5Aq", category: "top" },
-    { title: "Ensemble Nuit d'Or", price: "€290", id: "1ao-8uE2CtM6iBZE9p0MALLJrRUaXJBQ2", category: "ensemble" },
-    { title: "Nuisette poudré", price: "€95", id: "1bt8RGUPcx5hmYTw3RQIPfo6vzmh3IK-T", category: "nuisette" },
-    { title: "Haut Tradition", price: "€95", id: "1ieLE6fMF8tm3cTJ5kZuOS7RpWlJW-Spd", category: "top" }
+    { 
+      title: "Nuisette Pétale", 
+      price: "€165", 
+      id: "12QM2igjPdpNhFtJ04ZojpK9S1UYDWFat", 
+      category: "nuisette",
+      description: "Une pièce d'une légèreté absolue, confectionnée dans un satin de soie délicat aux reflets poudrés. Ses finitions en dentelle fine soulignent délicatement la silhouette."
+    },
+    { 
+      title: "Robe de nuit dentelle poudré", 
+      price: "€185", 
+      id: "162_8VX9XiBGaB_xuwZW3Ft2L1mH42Yir", 
+      category: "robe",
+      description: "L'élégance du poudré alliée à la noblesse de la dentelle. Une robe de nuit fluide qui accompagne vos mouvements avec grâce et douceur."
+    },
+    { 
+      title: "Jupe dentelle", 
+      price: "€145", 
+      id: "1ARFmfjpQsC1kRNfjzWdr4EH80t5Fwbn0", 
+      category: "jupe",
+      description: "Une jupe aérienne en dentelle travaillée, idéale pour superposer et créer des jeux de transparence sophistiqués."
+    },
+    { 
+      title: "Soutien-gorge Pétale", 
+      price: "€95", 
+      id: "1BN4_Jqk5FIOirUQWBJrDJLq2uzBaUkOD", 
+      category: "soutien-gorge",
+      description: "Confort et raffinement se rencontrent dans cette pièce sans armatures, ornée de motifs floraux en dentelle de Calais."
+    },
+    { 
+      title: "La Classique Dress Dentelle", 
+      price: "€175", 
+      id: "1D_fFdSLP41I4DkP5b9v-oeM7KJxomzR3", 
+      category: "robe",
+      description: "Inspirée des silhouettes d'antan, cette robe en dentelle structurée offre une allure intemporelle et majestueuse."
+    },
+    { 
+      title: "Collant en dentelle", 
+      price: "€35", 
+      id: "1E3gBmUUOXmOZHOFlyw7L12cntWveYKw3", 
+      category: "accessoire",
+      description: "L'accessoire ultime pour parfaire une tenue Boudoir. Une maille fine et des motifs complexes pour habiller vos jambes de poésie."
+    },
+    { 
+      title: "Corset noir dentelle", 
+      price: "€210", 
+      id: "1EAlIrzdwRx6se2En8T84rULCs_xQmDrV", 
+      category: "top",
+      description: "Une pièce de caractère sculptante, mêlant satin noir profond et dentelle ajourée. Un contraste saisissant entre force et délicatesse."
+    },
+    { 
+      title: "Robe de Nuit Collection Mariage", 
+      price: "€380", 
+      id: "1I0og3VaG6c-cmjHC7GqagkB4VklwJZZe", 
+      category: "robe",
+      description: "L'excellence de notre savoir-faire. Soie laiteuse, dentelle à la main et détails perlés pour une nuit d'exception."
+    },
+    { 
+      title: "Ensemble Matin", 
+      price: "€180", 
+      id: "1NLYg6yeDNGygFH7G87cJPqSiUBQugw-X", 
+      category: "ensemble",
+      description: "Un ensemble deux pièces en coton ultra-souple et dentelle, pensé pour la douceur des premiers instants du jour."
+    },
+    { 
+      title: "Robe de printemps poudré", 
+      price: "€195", 
+      id: "1Wo_Q6GbuiDtNhGM-mVAuyCGutFT1KYPG", 
+      category: "robe",
+      description: "Une robe légère aux teintes printanières, ornée de broderies délicates évoquant le réveil de la nature."
+    },
+    { 
+      title: "Haut Dentelle Fine", 
+      price: "€130", 
+      id: "1XqGyRXw91-xMbutUfIPemb17PPnrb5Aq", 
+      category: "top",
+      description: "Un haut tout en transparence et en finesse, à porter à fleur de peau ou en superposition."
+    },
+    { 
+      title: "Ensemble Nuit d'Or", 
+      price: "€290", 
+      id: "1ao-8uE2CtM6iBZE9p0MALLJrRUaXJBQ2", 
+      category: "ensemble",
+      description: "L'opulence du doré mariée à la soie noire. Un ensemble luxueux pour celles qui cherchent l'éclat dans l'obscurité."
+    },
+    { 
+      title: "Nuisette poudré", 
+      price: "€95", 
+      id: "1bt8RGUPcx5hmYTw3RQIPfo6vzmh3IK-T", 
+      category: "nuisette",
+      description: "Une nuisette courte et épurée, mettant en avant la qualité exceptionnelle de notre satin de soie."
+    },
+    { 
+      title: "Haut Tradition", 
+      price: "€95", 
+      id: "1ieLE6fMF8tm3cTJ5kZuOS7RpWlJW-Spd", 
+      category: "top",
+      description: "Un haut classique aux finitions impeccables, incarnant l'héritage et la tradition de la maison Boudoir."
+    }
   ]
 };
