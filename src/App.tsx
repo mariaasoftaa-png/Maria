@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { useState, useEffect, ReactNode } from "react";
 import { getDriveUrl, DRIVE_MAPPING } from "./lib/drive";
@@ -15,8 +15,26 @@ const Section = ({ children, className = "", id }: { children: ReactNode; classN
 );
 
 export default function App() {
+  const [currentPage, setCurrentPage] = useState<"home" | "book">("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCollectionsSubMenuOpen, setIsCollectionsSubMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState("toutes");
+
+  const categories = [
+    { label: "Toutes", id: "toutes" },
+    { label: "Nuisette", id: "nuisette" },
+    { label: "Top", id: "top" },
+    { label: "Jupe", id: "jupe" },
+    { label: "Accessoire", id: "accessoire" },
+    { label: "Robe", id: "robe" },
+    { label: "Soutien-gorge", id: "soutien-gorge" },
+    { label: "Ensemble", id: "ensemble" }
+  ];
+
+  const filteredProducts = selectedCategory === "toutes" 
+    ? DRIVE_MAPPING.products 
+    : DRIVE_MAPPING.products.filter(p => p.category === selectedCategory);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY);
@@ -29,8 +47,248 @@ export default function App() {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
       setIsMenuOpen(false);
+      setIsCollectionsSubMenuOpen(false);
     }
   };
+
+  const [currentBookImageIndex, setCurrentBookImageIndex] = useState(0);
+
+  const nextBookImage = () => {
+    setCurrentBookImageIndex((prev) => (prev + 1) % (DRIVE_MAPPING as any).bookGallery.length);
+  };
+
+  const prevBookImage = () => {
+    setCurrentBookImageIndex((prev) => (prev - 1 + (DRIVE_MAPPING as any).bookGallery.length) % (DRIVE_MAPPING as any).bookGallery.length);
+  };
+
+  if (currentPage === "book") {
+    const bookImages = (DRIVE_MAPPING as any).bookGallery;
+    return (
+      <div className="relative min-h-screen overflow-x-hidden bg-paper">
+        <div className="grain" />
+        
+        {/* Navigation override for back button */}
+        <nav className="fixed top-0 left-0 w-full z-40 flex justify-between items-center p-8 mix-blend-difference text-white">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-2xl tracking-[0.2em] font-light cursor-pointer"
+            onClick={() => {
+              setCurrentPage("home");
+              window.scrollTo(0, 0);
+            }}
+          >
+            BOUDOIR
+          </motion.div>
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-2 hover:opacity-50 transition-opacity"
+          >
+            {isMenuOpen ? <X size={24} strokeWidth={1} /> : <Menu size={24} strokeWidth={1} />}
+          </button>
+        </nav>
+
+        {/* Menu (same as home) */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-paper z-30 flex flex-col justify-center items-center text-center"
+            >
+              <div className="space-y-12 text-4xl md:text-6xl font-light italic overflow-y-auto max-h-screen py-24">
+                {[
+                  { name: "Le Carnet de Vente", id: "collections" },
+                  { name: "Livre Partenaire", id: "livre" },
+                  { name: "Journal", id: "journal" },
+                  { name: "L'Atelier", id: "atelier" },
+                  { name: "Contact", id: "contact" }
+                ].map((item, i) => (
+                  <div key={item.id} className="flex flex-col items-center">
+                    <motion.div
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: i * 0.1 }}
+                      onClick={() => {
+                        if (item.id === "collections") {
+                          setIsCollectionsSubMenuOpen(!isCollectionsSubMenuOpen);
+                        } else if (item.id === "livre") {
+                          setCurrentPage("book");
+                          setIsMenuOpen(false);
+                          window.scrollTo(0, 0);
+                        } else {
+                          setCurrentPage("home");
+                          setIsMenuOpen(false);
+                          setTimeout(() => {
+                            const el = document.getElementById(item.id);
+                            if (el) el.scrollIntoView({ behavior: "smooth" });
+                          }, 100);
+                        }
+                      }}
+                      className="cursor-pointer hover:text-rose-faded transition-colors flex items-center gap-4"
+                    >
+                      {item.name}
+                      {item.id === "collections" && (
+                        <motion.span 
+                          animate={{ rotate: isCollectionsSubMenuOpen ? 180 : 0 }}
+                          className="text-xs"
+                        >
+                          ↓
+                        </motion.span>
+                      )}
+                    </motion.div>
+                    
+                    {item.id === "collections" && (
+                      <AnimatePresence>
+                        {isCollectionsSubMenuOpen && (
+                          <motion.div 
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="flex flex-wrap justify-center gap-x-6 gap-y-3 mt-6 max-w-sm px-4 overflow-hidden"
+                          >
+                            <button
+                              onClick={() => {
+                                setSelectedCategory("toutes");
+                                setCurrentPage("home");
+                                setIsMenuOpen(false);
+                                setTimeout(() => {
+                                  const el = document.getElementById("collections");
+                                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                                }, 100);
+                              }}
+                              className="text-[10px] uppercase tracking-[0.2em] font-sans opacity-60 hover:opacity-100 italic"
+                            >
+                              Voir tout
+                            </button>
+                            {categories.filter(c => c.id !== "toutes").map((cat, catIdx) => (
+                              <motion.button
+                                key={cat.id}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 0.5, y: 0 }}
+                                whileHover={{ opacity: 1, scale: 1.05 }}
+                                transition={{ delay: catIdx * 0.05 }}
+                                onClick={() => {
+                                  setSelectedCategory(cat.id);
+                                  setCurrentPage("home");
+                                  setIsMenuOpen(false);
+                                  setTimeout(() => {
+                                    const el = document.getElementById("collections");
+                                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                                  }, 100);
+                                }}
+                                className="text-[10px] uppercase tracking-[0.2em] font-sans hover:text-rose-faded transition-all"
+                              >
+                                {cat.label}
+                              </motion.button>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <Section className="flex flex-col items-center pt-48">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-4xl text-center mb-24"
+          >
+            <span className="text-[10px] uppercase tracking-[0.6em] font-sans opacity-50 mb-8 block">L'Inspiration Partagée</span>
+            <h1 className="text-5xl md:text-8xl italic mb-12">Livre Partenaire</h1>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm uppercase tracking-widest font-sans opacity-60">
+              <span>Thomas Lelu</span>
+              <span className="hidden md:block opacity-30">&</span>
+              <span>Marine Neuilly</span>
+            </div>
+          </motion.div>
+
+          <div className="max-w-3xl prose prose-invert text-center mb-16">
+            <p className="text-xl md:text-2xl italic leading-relaxed opacity-80">
+              « Ce livre est une pièce maîtresse pour Boudoir. Il incarne l'essence même qui a inspiré la création de notre marque : une célébration de l'intime à travers un regard artistique et complice. »
+            </p>
+          </div>
+
+          {/* Carousel Viewer */}
+          <div className="w-full max-w-5xl relative group">
+            <div className="aspect-[3/4] md:aspect-[16/10] overflow-hidden relative bg-rose-faded/5 flex items-center justify-center">
+              <AnimatePresence mode="wait">
+                <motion.img 
+                  key={currentBookImageIndex}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8 }}
+                  src={getDriveUrl(bookImages[currentBookImageIndex]) || undefined} 
+                  alt={`Livre Page ${currentBookImageIndex + 1}`}
+                  className="w-full h-full object-contain image-grain"
+                  referrerPolicy="no-referrer"
+                />
+              </AnimatePresence>
+
+              {/* Navigation Arrows */}
+              <button 
+                onClick={prevBookImage}
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-4 bg-paper/20 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-paper/40"
+              >
+                <ArrowRight size={24} className="rotate-180" />
+              </button>
+              <button 
+                onClick={nextBookImage}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-4 bg-paper/20 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-paper/40"
+              >
+                <ArrowRight size={24} />
+              </button>
+            </div>
+
+            {/* Pagination / Counter */}
+            <div className="flex justify-between items-center mt-8 px-4">
+              <div className="text-[10px] uppercase tracking-widest font-sans opacity-30">
+                {currentBookImageIndex + 1} / {bookImages.length}
+              </div>
+              <div className="flex gap-2">
+                {bookImages.map((_: any, i: number) => (
+                  <button 
+                    key={i}
+                    onClick={() => setCurrentBookImageIndex(i)}
+                    className={`w-1 h-1 rounded-full transition-all duration-500 ${i === currentBookImageIndex ? "w-8 bg-ink" : "bg-ink/20"}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="mt-32 text-center"
+          >
+            <button 
+              onClick={() => {
+                setCurrentPage("home");
+                window.scrollTo(0, 0);
+              }}
+              className="text-xs uppercase tracking-[0.4em] font-sans border-b border-ink pb-2 hover:opacity-50 transition-opacity"
+            >
+              Retour à l'accueil
+            </button>
+          </motion.div>
+        </Section>
+
+        {/* Footer */}
+        <footer className="py-24 px-12 border-t border-ink/5 text-center space-y-12">
+          <div className="text-6xl md:text-9xl font-light tracking-tighter opacity-10">BOUDOIR</div>
+          <p className="text-xs italic opacity-40">© 2026 Boudoir. Édition Collection Partenaire.</p>
+        </footer>
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
@@ -60,24 +318,83 @@ export default function App() {
         animate={{ opacity: isMenuOpen ? 1 : 0, pointerEvents: isMenuOpen ? "auto" : "none" }}
         className="fixed inset-0 bg-paper z-30 flex flex-col justify-center items-center text-center"
       >
-        <div className="space-y-8 text-4xl md:text-6xl font-light italic">
+        <div className="space-y-12 text-4xl md:text-6xl font-light italic overflow-y-auto max-h-screen py-24">
           {[
-            { name: "Collections", id: "collections" },
+            { name: "Le Carnet de Vente", id: "collections" },
             { name: "Livre Partenaire", id: "livre" },
             { name: "Journal", id: "journal" },
             { name: "L'Atelier", id: "atelier" },
             { name: "Contact", id: "contact" }
           ].map((item, i) => (
-            <motion.div
-              key={item.id}
-              initial={{ y: 20, opacity: 0 }}
-              animate={isMenuOpen ? { y: 0, opacity: 1 } : {}}
-              transition={{ delay: i * 0.1 }}
-              onClick={() => scrollToSection(item.id)}
-              className="cursor-pointer hover:text-rose-faded transition-colors"
-            >
-              {item.name}
-            </motion.div>
+            <div key={item.id} className="flex flex-col items-center">
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={isMenuOpen ? { y: 0, opacity: 1 } : {}}
+                transition={{ delay: i * 0.1 }}
+                onClick={() => {
+                  if (item.id === "collections") {
+                    setIsCollectionsSubMenuOpen(!isCollectionsSubMenuOpen);
+                  } else if (item.id === "livre") {
+                    setCurrentPage("book");
+                    setIsMenuOpen(false);
+                    window.scrollTo(0, 0);
+                  } else {
+                    setCurrentPage("home");
+                    setTimeout(() => scrollToSection(item.id), 100);
+                  }
+                }}
+                className="cursor-pointer hover:text-rose-faded transition-colors flex items-center gap-4"
+              >
+                {item.name}
+                {item.id === "collections" && (
+                  <motion.span 
+                    animate={{ rotate: isCollectionsSubMenuOpen ? 180 : 0 }}
+                    className="text-xs"
+                  >
+                    ↓
+                  </motion.span>
+                )}
+              </motion.div>
+              
+              {item.id === "collections" && (
+                <AnimatePresence>
+                  {isCollectionsSubMenuOpen && (
+                    <motion.div 
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="flex flex-wrap justify-center gap-x-6 gap-y-3 mt-6 max-w-sm px-4 overflow-hidden"
+                    >
+                      <button
+                        onClick={() => {
+                          setSelectedCategory("toutes");
+                          scrollToSection("collections");
+                        }}
+                        className="text-[10px] uppercase tracking-[0.2em] font-sans opacity-60 hover:opacity-100 italic"
+                      >
+                        Voir tout
+                      </button>
+                      {categories.filter(c => c.id !== "toutes").map((cat, catIdx) => (
+                        <motion.button
+                          key={cat.id}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 0.5, y: 0 }}
+                          whileHover={{ opacity: 1, scale: 1.05 }}
+                          transition={{ delay: catIdx * 0.05 }}
+                          onClick={() => {
+                            setSelectedCategory(cat.id);
+                            scrollToSection("collections");
+                          }}
+                          className="text-[10px] uppercase tracking-[0.2em] font-sans hover:text-rose-faded transition-all"
+                        >
+                          {cat.label}
+                        </motion.button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              )}
+            </div>
           ))}
         </div>
       </motion.div>
@@ -121,7 +438,13 @@ export default function App() {
             <p className="text-lg opacity-80 leading-relaxed mb-8">
               Une exploration visuelle de l'intimité, capturée à travers l'objectif de nos partenaires créatifs. Des moments volés, des textures oubliées, une ode à la féminité brute.
             </p>
-            <button className="flex items-center gap-4 group text-sm uppercase tracking-widest font-sans">
+            <button 
+              onClick={() => {
+                setCurrentPage("book");
+                window.scrollTo(0, 0);
+              }}
+              className="flex items-center gap-4 group text-sm uppercase tracking-widest font-sans"
+            >
               Explorer le livre <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
             </button>
           </motion.div>
@@ -230,13 +553,30 @@ export default function App() {
 
       {/* Product Showcase (The rest of the photos) */}
       <Section id="collections" className="bg-paper">
-        <div className="text-center mb-24">
+        <div className="text-center mb-16">
           <span className="text-[10px] uppercase tracking-[0.5em] font-sans opacity-50">La Collection</span>
           <h2 className="text-4xl italic mt-4">Le Carnet de Vente</h2>
         </div>
+
+        {/* Category Filters */}
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-20">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`text-[10px] uppercase tracking-[0.3em] font-sans transition-all duration-500 pb-2 border-b ${
+                selectedCategory === cat.id 
+                  ? "border-ink opacity-100" 
+                  : "border-transparent opacity-30 hover:opacity-100"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
-          {DRIVE_MAPPING.products.map((product, i) => (
+          {filteredProducts.map((product, i) => (
             <motion.div 
               key={i}
               initial={{ opacity: 0, y: 20 }}

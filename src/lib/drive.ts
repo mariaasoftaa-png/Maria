@@ -46,21 +46,34 @@ export const DRIVE_MAPPING = {
   story2: "1aGNx7e_jxvwg7-T6Xhnst5qYSfk_0xF1",
   story3: "1Pp1HyRgVt5VNY94zMcpW5LkTy0E_-3ps",
 
+  // Book gallery images
+  bookGallery: [
+    "19HQBH-ckXy2dCCvGnbMaFtjGbKXBL7Zb",
+    "19k-qyfNQIYY6Qw_uA5hhN2Nu3M7yf3Li",
+    "1Dfx87YsmkjS70MrXUFdHubJBDj647jU-",
+    "1Ea0_z5xsWJD5lGEvWDlw-brFjtl8Wjf-",
+    "1JGk0jlWJIt1djWITfpzPeJGezwmOobZz",
+    "1QT9TVt-3YfTFClFaCEs3TDa6iXLbKVFf",
+    "1rAG0anCl4ttffpR4FvI7DVNUOjQkXJXd",
+    "1vPZEjelN3FbfafodT2x2u1QEO8MO-Xd0",
+    "1zWgo0aFzxmIr8kQfZzzLwgSPRA2AW10N"
+  ],
+
   // Product Collection
   products: [
-    { title: "Nuisette Pétale", price: "€165", id: "12QM2igjPdpNhFtJ04ZojpK9S1UYDWFat" },
-    { title: "Robe de nuit dentelle poudré", price: "€185", id: "162_8VX9XiBGaB_xuwZW3Ft2L1mH42Yir" },
-    { title: "Jupe dentelle", price: "€145", id: "1ARFmfjpQsC1kRNfjzWdr4EH80t5Fwbn0" },
-    { title: "Soutien-gorge Pétale", price: "€95", id: "1BN4_Jqk5FIOirUQWBJrDJLq2uzBaUkOD" },
-    { title: "La Classique Dress Dentelle", price: "€175", id: "1D_fFdSLP41I4DkP5b9v-oeM7KJxomzR3" },
-    { title: "Collant en dentelle", price: "€35", id: "1E3gBmUUOXmOZHOFlyw7L12cntWveYKw3" },
-    { title: "Corset noir dentelle", price: "€210", id: "1EAlIrzdwRx6se2En8T84rULCs_xQmDrV" },
-    { title: "Robe de Nuit Collection Mariage", price: "€380", id: "1I0og3VaG6c-cmjHC7GqagkB4VklwJZZe" },
-    { title: "Ensemble Matin", price: "€180", id: "1NLYg6yeDNGygFH7G87cJPqSiUBQugw-X" },
-    { title: "Robe de printemps poudré", price: "€195", id: "1Wo_Q6GbuiDtNhGM-mVAuyCGutFT1KYPG" },
-    { title: "Haut Dentelle Fine", price: "€130", id: "1XqGyRXw91-xMbutUfIPemb17PPnrb5Aq" },
-    { title: "Ensemble Nuit d'Or", price: "€290", id: "1ao-8uE2CtM6iBZE9p0MALLJrRUaXJBQ2" },
-    { title: "Top poudré", price: "€95", id: "1bt8RGUPcx5hmYTw3RQIPfo6vzmh3IK-T" },
-    { title: "Haut Tradition", price: "€95", id: "1ieLE6fMF8tm3cTJ5kZuOS7RpWlJW-Spd" }
+    { title: "Nuisette Pétale", price: "€165", id: "12QM2igjPdpNhFtJ04ZojpK9S1UYDWFat", category: "nuisette" },
+    { title: "Robe de nuit dentelle poudré", price: "€185", id: "162_8VX9XiBGaB_xuwZW3Ft2L1mH42Yir", category: "robe" },
+    { title: "Jupe dentelle", price: "€145", id: "1ARFmfjpQsC1kRNfjzWdr4EH80t5Fwbn0", category: "jupe" },
+    { title: "Soutien-gorge Pétale", price: "€95", id: "1BN4_Jqk5FIOirUQWBJrDJLq2uzBaUkOD", category: "soutien-gorge" },
+    { title: "La Classique Dress Dentelle", price: "€175", id: "1D_fFdSLP41I4DkP5b9v-oeM7KJxomzR3", category: "robe" },
+    { title: "Collant en dentelle", price: "€35", id: "1E3gBmUUOXmOZHOFlyw7L12cntWveYKw3", category: "accessoire" },
+    { title: "Corset noir dentelle", price: "€210", id: "1EAlIrzdwRx6se2En8T84rULCs_xQmDrV", category: "top" },
+    { title: "Robe de Nuit Collection Mariage", price: "€380", id: "1I0og3VaG6c-cmjHC7GqagkB4VklwJZZe", category: "robe" },
+    { title: "Ensemble Matin", price: "€180", id: "1NLYg6yeDNGygFH7G87cJPqSiUBQugw-X", category: "ensemble" },
+    { title: "Robe de printemps poudré", price: "€195", id: "1Wo_Q6GbuiDtNhGM-mVAuyCGutFT1KYPG", category: "robe" },
+    { title: "Haut Dentelle Fine", price: "€130", id: "1XqGyRXw91-xMbutUfIPemb17PPnrb5Aq", category: "top" },
+    { title: "Ensemble Nuit d'Or", price: "€290", id: "1ao-8uE2CtM6iBZE9p0MALLJrRUaXJBQ2", category: "ensemble" },
+    { title: "Nuisette poudré", price: "€95", id: "1bt8RGUPcx5hmYTw3RQIPfo6vzmh3IK-T", category: "nuisette" },
+    { title: "Haut Tradition", price: "€95", id: "1ieLE6fMF8tm3cTJ5kZuOS7RpWlJW-Spd", category: "top" }
   ]
 };
